@@ -12,6 +12,36 @@ main {
     flex: 1 0 0;
 }
 
+#map {
+    height: calc(100% - 62px - 0.5rem);
+}
+
+.leaflet-interactive:focus {
+    outline: none;
+    stroke-width: 6;
+}
+
+.leaflet-custom-popup-box p {
+    margin: 8px 0 !important;
+}
+
+#ul-migration-net {
+    list-style-type: disc;
+    padding-left: 16px;
+    margin: 0;
+}
+
+#ul-migration-net li {
+    margin: 8px 0;
+}
+
+
+line.line-horizontal.dashed {
+    stroke: rgb(100, 100, 100) !important;
+    stroke-dasharray: none !important;
+}
+
+
 footer {
     display: flex;
     justify-content: center;

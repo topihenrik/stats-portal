@@ -4,18 +4,59 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/icons/favicon.svg" />
     <title>Stats Portal</title>
 </head>
 <body>
     <header class="navbar">
-        <h1>Stats Portal</h1>
+        <div class="container">
+            <h1>Stats Portal</h1>
+        </div>
     </header>
     <main>
-        
+        <div id="main-container" class="container">
+            <form id="form-data" class="mb-2 d-flex gap-2">
+                <div class="form-floating col-5 col-sm-4 col-lg-3">
+                    <select id="select-stat" class="form-select">
+                        <option value="employment">Unemployment</option>
+                        <option value="education">Education Level</option>
+                        <option value="migration">Intermunicipal Migration</option>
+                        <!-- <option>Rental prices</option> -->
+                        <!-- <option>Population</option> -->
+                    </select>
+                    <label for="select-stat">Source</label>
+                </div>
+                <div class="form-floating col-5 col-sm-4 col-lg-3">
+                    <select id="select-year" class="form-select">
+                        <option value="2020" selected>2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>  
+                    </select>
+                    <label for="select-year">Year</label>
+                </div>
+            </form>
+        </div>
     </main>
     <footer>
         <a href="https://github.com/topihenrik">Developed by <img id="github-logo" src="./assets/icons/github.png"/>topihenrik</a>
     </footer>
-    <script src="./assets/javascripts/index.js"></script>
+    <div class="modal fade" id="chart-modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modal-title" class="modal-title"></h5>
+                </div>
+                <div class="modal-body">
+                    <div id="chart"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./assets/javascripts/index.js" defer></script>
 </body>
 </html>
