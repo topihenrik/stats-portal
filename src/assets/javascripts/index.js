@@ -12,18 +12,6 @@ import { generatePopupEducation } from "./education";
 import { generatePopupMigration } from "./migration";
 
 
-
-const regenerateMapElement = () => {
-    if (document.getElementById("map")) document.getElementById("map").remove();
-    const container = document.getElementById("main-container");
-    const map = document.createElement("div");
-    map.id = "map";
-    container.appendChild(map);
-    return;
-}
-
-
-
 const fetchData = async(stat) => {
     try {
         let fetchUrl = undefined;
@@ -58,12 +46,34 @@ const fetchData = async(stat) => {
 }
 
 
+const initMap = (map = undefined) => {
+    const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 20,
+        attribution: "© OpenStreetMap"
+    })
+    .addTo(map);
 
-const initMap = async (map = undefined, stat = "employment", fullYear = 2020) => {
+    const google = L.tileLayer("https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", {
+        maxZoom: 20,
+        minZoom: 2,
+        subdomains: ["mt0", "mt1", "mt2", "mt3"]
+    })
+
+    const baseMaps = {
+        "OpenStreetMap": osm,
+        "Google Maps": google
+    }
+
+    L.control.layers(baseMaps).addTo(map);
+}
+
+
+const addGeoJson = async (map = undefined, stat = "employment", fullYear = 2020, geoLayer = undefined) => {
     try {
         const {resultGeo, resultStat} = await fetchData(stat);
+        geoLayer.clearLayers();
         const year = fullYear-2016;
-
+    
         let geoJson = undefined;
         if (stat === "employment") {
             geoJson = L.geoJSON(resultGeo, {
@@ -73,10 +83,10 @@ const initMap = async (map = undefined, stat = "employment", fullYear = 2020) =>
                     layer.bindTooltip(feature.properties.name);
                     layer.bindPopup(generatePopupEmployment(feature, resultStat, index, year));
                     const hue = Math.min(Math.floor(Math.pow(resultStat.value[index+30+year]/resultStat.value[index+15+year],3)*100), 120);
-                    layer.setStyle({color: `hsl(${hue}, 75%, 50%)`})
+                    layer.setStyle({color: `hsl(${hue}, 75%, 50%)`});
                 },
                 weigth: 2
-            }).addTo(map);
+            }).addTo(geoLayer);
         } else if (stat === "education") {
             geoJson = L.geoJSON(resultGeo, {
                 onEachFeature: (feature, layer) => {
@@ -85,10 +95,10 @@ const initMap = async (map = undefined, stat = "employment", fullYear = 2020) =>
                     layer.bindTooltip(feature.properties.name);
                     layer.bindPopup(generatePopupEducation(feature, resultStat, index, year));
                     const hue = Math.min(Math.floor(((resultStat.value[index+5+year*310*27]/resultStat.value[index+0+year*310*27])*700)), 120);
-                    layer.setStyle({color: `hsl(${hue}, 75%, 50%)`})
+                    layer.setStyle({color: `hsl(${hue}, 75%, 50%)`});
                 },
                 weigth: 2
-            }).addTo(map);
+            }).addTo(geoLayer);
         } else if (stat === "migration") {
             geoJson = L.geoJSON(resultGeo, {
                 onEachFeature: (feature, layer) => {
@@ -98,45 +108,21 @@ const initMap = async (map = undefined, stat = "employment", fullYear = 2020) =>
                     layer.bindPopup(generatePopupMigration(feature, resultStat, index, year));
                     const hue = Math.min(Math.floor(((resultStat.value[index+0+year*310*2]/resultStat.value[index+1+year*310*2])*70)), 120);
                     layer.setStyle({color: `hsl(${hue}, 75%, 50%)`});
-                    /* debugger */
                 },
                 weigth: 2
-            }).addTo(map);
-        }
-        
-    
-        const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            maxZoom: 20,
-            attribution: "© OpenStreetMap"
-        })
-        .addTo(map);
-
-        const google = L.tileLayer("https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", {
-            maxZoom: 20,
-            minZoom: 2,
-            subdomains: ["mt0", "mt1", "mt2", "mt3"]
-        })
-
-        const baseMaps = {
-            "OpenStreetMap": osm,
-            "Google Maps": google
+            }).addTo(geoLayer);
         }
 
-        L.control.layers(baseMaps).addTo(map);
-        
         map.fitBounds(geoJson.getBounds());
     } catch (error) {
         console.log(error);
     }
-    
 }
 
 
-
-
-const initialize = async () => {
-    regenerateMapElement();
+const initialize = () => {
     const map = L.map("map", {minZoom: -3});
+    const geoLayer = L.layerGroup().addTo(map);
 
     const formData = document.getElementById("form-data");
     const selectStat = document.getElementById("select-stat");
@@ -145,10 +131,11 @@ const initialize = async () => {
         e.preventDefault();
         const stat = selectStat.value;
         const year = parseInt(selectYear.value);
-        initMap(map, stat, year);
-    }) 
+        addGeoJson(map, stat, year, geoLayer);
+    })
     
     initMap(map);
+    addGeoJson(map, undefined, undefined, geoLayer);
 }
 
 initialize();
