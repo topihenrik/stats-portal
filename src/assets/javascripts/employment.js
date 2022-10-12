@@ -75,7 +75,6 @@ const generatePopupEmployment = (feature, resultEmployment, index, year) => {
     divPopupBox.appendChild(pEmp);
 
     const btnModal = document.createElement("button");
-    btnModal.value = index;
     btnModal.addEventListener("click", (e) => {
         buildChartEmployment(index, feature.properties.name, resultEmployment);
     });

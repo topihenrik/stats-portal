@@ -84,7 +84,6 @@ const generatePopupMigration = (feature, resultMigration, index, year) => {
     divPopupBox.appendChild(pOutMigration);
 
     const btnModal = document.createElement("button");
-    btnModal.value = index;
     btnModal.addEventListener("click", (e) => {
         buildChartMigration(index, feature.properties.name, resultMigration);
     });

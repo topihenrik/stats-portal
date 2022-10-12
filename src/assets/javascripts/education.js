@@ -83,7 +83,6 @@ const generatePopupEducation = (feature, resultEducation, index, year) => {
     divPopupBox.appendChild(pRdRate);
 
     const btnModal = document.createElement("button");
-    btnModal.value = index;
     btnModal.addEventListener("click", (e) => {
         buildChartEducation(index, feature.properties.name, resultEducation);
     });

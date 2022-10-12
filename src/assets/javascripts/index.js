@@ -1,9 +1,11 @@
 import "../stylesheets/reset.css";
 import "../stylesheets/style.css"
 import "../stylesheets/main.scss";
-import "bootstrap";
+/* import "bootstrap"; */
+import { Modal } from 'bootstrap'
 import L from "../../../node_modules/leaflet/dist/leaflet.js";
 import "../../../node_modules/leaflet/dist/leaflet.css";
+import "leaflet-easyprint"
 import employmentJSON from "../jsons/employment.json";
 import educationJSON from "../jsons/education.json";
 import migrationJSON from "../jsons/migration.json";
@@ -47,6 +49,13 @@ const fetchData = async(stat) => {
 
 
 const initMap = (map = undefined) => {
+    L.easyPrint({
+        title: "test111",
+        exportOnly: true,
+        position: "topleft",
+        sizeModes: ['A4Portrait', 'A4Landscape']
+    }).addTo(map);
+
     const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 20,
         attribution: "© OpenStreetMap"
@@ -73,8 +82,8 @@ const addGeoJson = async (map = undefined, stat = "employment", fullYear = 2020,
         const {resultGeo, resultStat} = await fetchData(stat);
         geoLayer.clearLayers();
         const year = fullYear-2016;
-    
         let geoJson = undefined;
+
         if (stat === "employment") {
             geoJson = L.geoJSON(resultGeo, {
                 onEachFeature: (feature, layer) => {
@@ -121,6 +130,17 @@ const addGeoJson = async (map = undefined, stat = "employment", fullYear = 2020,
 
 
 const initialize = () => {
+    if (localStorage.getItem("init") === null) {
+        const infoModal = document.getElementById("info-modal");
+        Modal.getOrCreateInstance(infoModal).show();
+        localStorage.setItem("init", true);
+    }
+
+    document.getElementById("btn-info").addEventListener("click", (e) => {
+        e.preventDefault();
+
+    })
+
     const map = L.map("map", {minZoom: -3});
     const geoLayer = L.layerGroup().addTo(map);
 

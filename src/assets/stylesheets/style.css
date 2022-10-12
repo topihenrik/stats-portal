@@ -41,6 +41,10 @@ line.line-horizontal.dashed {
     stroke-dasharray: none !important;
 }
 
+#info-img {
+    height: 32px;
+    width: 32px;
+}
 
 footer {
     display: flex;
