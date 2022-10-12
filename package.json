@@ -1,8 +1,7 @@
 {
   "name": "stats-portal",
   "version": "1.0.0",
-  "description": "Final project",
-  "main": "index.html",
+  "description": "Project work",
   "source": "src/index.html",
   "scripts": {
     "start": "parcel --open",
@@ -12,19 +11,10 @@
     "bootstrap": "^5.2.2",
     "frappe-charts": "^1.6.2",
     "leaflet": "^1.9.2",
-    "leaflet-easyprint": "^2.1.9",
-    "parcel-bundler": "^1.6.1"
+    "leaflet-easyprint": "^2.1.9"
   },
   "devDependencies": {
-    "@babel/core": "7.2.0",
-    "sass": "^1.55.0",
-    "typescript": "4.4.4"
-  },
-  "resolutions": {
-    "@babel/preset-env": "7.13.8"
-  },
-  "keywords": [
-    "javascript",
-    "starter"
-  ]
+    "@parcel/transformer-sass": "^2.7.0",
+    "parcel": "^2.7.0"
+  }
 }
