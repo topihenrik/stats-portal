@@ -1,57 +1,48 @@
 import { Chart } from "frappe-charts";
 
 const buildChartEducation = (municipalityIndex, municipality, resultEducation) => {
-    try {
-        const modalTitle = document.getElementById("modal-title");
-        modalTitle.innerText = municipality;
+    const modalTitle = document.getElementById("modal-title");
+    modalTitle.innerText = municipality;
 
-        const labels = Object.values(resultEducation.dimension.Vuosi.category.label);
+    const labels = Object.values(resultEducation.dimension.Vuosi.category.label);
+    const maleIndex = 9;
+    const femaleIndex = 18;
+    const ludValue = 5;
+    const maleLudRates = []
+    const femaleLudRates = []     
 
-        const maleIndex = 9;
-        const femaleIndex = 18;
-        const ludValue = 5;
-
-        const maleLudRates = []
-        const femaleLudRates = []     
-
-        console.log("length: ", resultEducation.value.length);
-        const fullYearLength = 310*27;
-        resultEducation.value.forEach((value, yearIndex) => {
-            if (yearIndex%fullYearLength === 0) {
-                maleLudRates.push(Math.floor(((resultEducation.value[yearIndex+municipalityIndex+maleIndex+ludValue]/resultEducation.value[yearIndex+municipalityIndex+maleIndex]))*1000)/10)
-                femaleLudRates.push(Math.floor(((resultEducation.value[yearIndex+municipalityIndex+femaleIndex+ludValue]/resultEducation.value[yearIndex+municipalityIndex+femaleIndex]))*1000)/10)
-            }
-        })
-
-
-        const chartData = {
-            labels: labels,
-            datasets: [
-                {
-                    name: "Male",
-                    values: maleLudRates
-                },
-                {
-                    name: "Female",
-                    values: femaleLudRates
-                }
-            ]
+    console.log("length: ", resultEducation.value.length);
+    const fullYearLength = 310*27;
+    resultEducation.value.forEach((value, yearIndex) => {
+        if (yearIndex%fullYearLength === 0) {
+            maleLudRates.push(Math.floor(((resultEducation.value[yearIndex+municipalityIndex+maleIndex+ludValue]/resultEducation.value[yearIndex+municipalityIndex+maleIndex]))*1000)/10)
+            femaleLudRates.push(Math.floor(((resultEducation.value[yearIndex+municipalityIndex+femaleIndex+ludValue]/resultEducation.value[yearIndex+municipalityIndex+femaleIndex]))*1000)/10)
         }
+    })
 
-
-        const chart = new Chart("#chart", {
-            title: "Lower Higher Education rates between genders (%)",
-            data: chartData,
-            type: "line",
-            heigth: 450,
-            colors: ["#0202fa", "#fa0213"]
-        })
-
-
-        return;
-    } catch (error) {
-        console.log(error);
+    const chartData = {
+        labels: labels,
+        datasets: [
+            {
+                name: "Male",
+                values: maleLudRates
+            },
+            {
+                name: "Female",
+                values: femaleLudRates
+            }
+        ]
     }
+
+    const chart = new Chart("#chart", {
+        title: "Lower Higher Education rates between genders (%)",
+        data: chartData,
+        type: "line",
+        heigth: 450,
+        colors: ["#0202fa", "#fa0213"]
+    })
+
+    return;
 }
 
 const generatePopupEducation = (feature, resultEducation, index, year) => {
@@ -94,10 +85,7 @@ const generatePopupEducation = (feature, resultEducation, index, year) => {
     btnModal.innerText = "Show chart";
     divPopupBox.appendChild(btnModal);
     
-    
     return divPopupBox;
 }
-
-
 
 export { generatePopupEducation };

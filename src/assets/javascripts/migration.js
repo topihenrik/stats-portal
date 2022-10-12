@@ -1,6 +1,5 @@
 import { Chart } from "frappe-charts";
 
-
 const buildChartMigration = (municipalityIndex, municipality, resultMigration) => {
     const modalTitle = document.getElementById("modal-title");
     modalTitle.innerText = municipality;
@@ -47,7 +46,6 @@ const generatePopupMigration = (feature, resultMigration, index, year) => {
     h4Name.innerText = feature.properties.name;
     divPopupBox.appendChild(h4Name);
 
-
     const pMigrationNet = document.createElement("p");
     pMigrationNet.innerText = "Net Migration";
     divPopupBox.appendChild(pMigrationNet);
@@ -55,7 +53,6 @@ const generatePopupMigration = (feature, resultMigration, index, year) => {
     const ulMigrationNet = document.createElement("ul");
     ulMigrationNet.id = "ul-migration-net";
     
-
     const liMigrationValue = document.createElement("li");
     const migrationValue = (resultMigration.value[index+year*310*2]/resultMigration.value[index+year*310*2+1]);
     if (migrationValue<1) {
@@ -68,12 +65,7 @@ const generatePopupMigration = (feature, resultMigration, index, year) => {
     const liMigrationValuePersons = document.createElement("li");
     liMigrationValuePersons.innerText = "persons:" + (resultMigration.value[index+year*310*2]-resultMigration.value[index+year*310*2+1]);
     ulMigrationNet.appendChild(liMigrationValuePersons);
-
     divPopupBox.appendChild(ulMigrationNet);
-
-
-
-
 
     const pInMigration = document.createElement("p");
     pInMigration.innerText = "In-Migration: " + resultMigration.value[index+year*310*2].toString().replace(/(\d)(?=(\d{3})+$)/g, '$1 ');
@@ -97,6 +89,5 @@ const generatePopupMigration = (feature, resultMigration, index, year) => {
 
     return divPopupBox;
 }
-
 
 export { generatePopupMigration };

@@ -1,54 +1,46 @@
 import { Chart } from "frappe-charts";
 
 const buildChartEmployment = (index, municipality, resultEmployment) => {
-    try {   
-        const modalTitle = document.getElementById("modal-title");
-        modalTitle.innerText = municipality;
-        
-        const labels = Object.values(resultEmployment.dimension.Vuosi.category.label);
-        const maleWorkforceValues = resultEmployment.value.slice(index+5+15, index+5+15+5);
-        const maleEmployedValues = resultEmployment.value.slice(index+5+30, index+5+30+5);
-        const maleUnemploymentRates = [];
-        maleWorkforceValues.forEach((workForceValue, index) => {
-            maleUnemploymentRates.push(Math.floor((1-(maleEmployedValues[index]/workForceValue))*1000)/10);
-        })
-
-        const femaleWorkforceValues = resultEmployment.value.slice(index+10+15, index+10+15+5);
-        const femaleEmployedValues = resultEmployment.value.slice(index+10+30, index+10+30+5);
-        const femaleUnemploymentRates = [];
-        femaleWorkforceValues.forEach((workForceValue, index) => {
-            femaleUnemploymentRates.push(Math.floor((1-(femaleEmployedValues[index]/workForceValue))*1000)/10);
-        })
-        
-        const chartData = {
-            labels: labels,
-            datasets: [
-                {
-                    name: "Male",
-                    values: maleUnemploymentRates
-                },
-                {
-                    name: "Female",
-                    values: femaleUnemploymentRates
-                }
-            ]
-        }
-
-        const chart = new Chart("#chart", {
-            title: "Unemployment rates between genders (%)",
-            data: chartData,
-            type: "line",
-            heigth: 450,
-            colors: ["#0202fa", "#fa0213"]
-        })
+    const modalTitle = document.getElementById("modal-title");
+    modalTitle.innerText = municipality;
     
+    const labels = Object.values(resultEmployment.dimension.Vuosi.category.label);
+    const maleWorkforceValues = resultEmployment.value.slice(index+5+15, index+5+15+5);
+    const maleEmployedValues = resultEmployment.value.slice(index+5+30, index+5+30+5);
+    const maleUnemploymentRates = [];
+    maleWorkforceValues.forEach((workForceValue, index) => {
+        maleUnemploymentRates.push(Math.floor((1-(maleEmployedValues[index]/workForceValue))*1000)/10);
+    })
 
-
-    } catch (error) {
-        console.log(error);
+    const femaleWorkforceValues = resultEmployment.value.slice(index+10+15, index+10+15+5);
+    const femaleEmployedValues = resultEmployment.value.slice(index+10+30, index+10+30+5);
+    const femaleUnemploymentRates = [];
+    femaleWorkforceValues.forEach((workForceValue, index) => {
+        femaleUnemploymentRates.push(Math.floor((1-(femaleEmployedValues[index]/workForceValue))*1000)/10);
+    })
+    
+    const chartData = {
+        labels: labels,
+        datasets: [
+            {
+                name: "Male",
+                values: maleUnemploymentRates
+            },
+            {
+                name: "Female",
+                values: femaleUnemploymentRates
+            }
+        ]
     }
-}
 
+    const chart = new Chart("#chart", {
+        title: "Unemployment rates between genders (%)",
+        data: chartData,
+        type: "line",
+        heigth: 450,
+        colors: ["#0202fa", "#fa0213"]
+    })
+}
 
 const generatePopupEmployment = (feature, resultEmployment, index, year) => {
     const divPopupBox = document.createElement("div");

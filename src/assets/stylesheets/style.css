@@ -1,3 +1,9 @@
+@font-face {
+    font-family: "Montserrat Alternates";
+    font-weight: 600;
+    src: url("../fonts/MontserratAlternates-SemiBold.ttf");
+}
+
 html, body {
     height: 100%;
 }
@@ -5,6 +11,11 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+}
+
+#header-title {
+    font-family: "Montserrat Alternates";
+    font-weight: 600;
 }
 
 main {

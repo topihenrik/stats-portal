@@ -1,7 +1,6 @@
 import "../stylesheets/reset.css";
 import "../stylesheets/style.css"
 import "../stylesheets/main.scss";
-/* import "bootstrap"; */
 import { Modal } from 'bootstrap'
 import L from "../../../node_modules/leaflet/dist/leaflet.js";
 import "../../../node_modules/leaflet/dist/leaflet.css";
@@ -12,7 +11,6 @@ import migrationJSON from "../jsons/migration.json";
 import { generatePopupEmployment } from "./employment";
 import { generatePopupEducation } from "./education";
 import { generatePopupMigration } from "./migration";
-
 
 const fetchData = async(stat) => {
     try {
@@ -47,7 +45,6 @@ const fetchData = async(stat) => {
     }
 }
 
-
 const initMap = (map = undefined) => {
     L.easyPrint({
         title: "test111",
@@ -75,7 +72,6 @@ const initMap = (map = undefined) => {
 
     L.control.layers(baseMaps).addTo(map);
 }
-
 
 const addGeoJson = async (map = undefined, stat = "employment", fullYear = 2020, geoLayer = undefined) => {
     try {
@@ -127,7 +123,6 @@ const addGeoJson = async (map = undefined, stat = "employment", fullYear = 2020,
         console.log(error);
     }
 }
-
 
 const initialize = () => {
     if (localStorage.getItem("init") === null) {
