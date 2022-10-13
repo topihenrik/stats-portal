@@ -51,6 +51,7 @@ const generatePopupEmployment = (feature, resultEmployment, index, year) => {
     divPopupBox.appendChild(h4Name);
 
     const pUnRate = document.createElement("p");
+    pUnRate.className = "map-value";
     pUnRate.innerText = "Unemployment Rate: " + Math.floor((1-(resultEmployment.value[index+year+30]/resultEmployment.value[index+year+15]))*1000)/10 + "%";
     divPopupBox.appendChild(pUnRate);
 

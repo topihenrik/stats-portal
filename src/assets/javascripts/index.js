@@ -80,6 +80,10 @@ const addGeoJson = async (map = undefined, stat = "employment", fullYear = 2020,
         const year = fullYear-2016;
         let geoJson = undefined;
 
+        const firstColor = document.getElementById("first-color");
+        const secondColor = document.getElementById("second-color");
+        const thirdColor = document.getElementById("third-color");
+
         if (stat === "employment") {
             geoJson = L.geoJSON(resultGeo, {
                 onEachFeature: (feature, layer) => {
@@ -92,6 +96,9 @@ const addGeoJson = async (map = undefined, stat = "employment", fullYear = 2020,
                 },
                 weigth: 2
             }).addTo(geoLayer);
+            firstColor.innerText = "Green: 10%";
+            secondColor.innerText = "Yellow: 15%";
+            thirdColor.innerText = "Red: 25%";
         } else if (stat === "education") {
             geoJson = L.geoJSON(resultGeo, {
                 onEachFeature: (feature, layer) => {
@@ -104,6 +111,9 @@ const addGeoJson = async (map = undefined, stat = "employment", fullYear = 2020,
                 },
                 weigth: 2
             }).addTo(geoLayer);
+            firstColor.innerText = "Green: 10%";
+            secondColor.innerText = "Yellow: 6%";
+            thirdColor.innerText = "Red: 4%";
         } else if (stat === "migration") {
             geoJson = L.geoJSON(resultGeo, {
                 onEachFeature: (feature, layer) => {
@@ -116,6 +126,9 @@ const addGeoJson = async (map = undefined, stat = "employment", fullYear = 2020,
                 },
                 weigth: 2
             }).addTo(geoLayer);
+            firstColor.innerText = "Green: 50%";
+            secondColor.innerText = "Yellow: 0%";
+            thirdColor.innerText = "Red: -50%";
         }
 
         map.fitBounds(geoJson.getBounds());
@@ -138,6 +151,16 @@ const initialize = () => {
 
     const map = L.map("map", {minZoom: -3});
     const geoLayer = L.layerGroup().addTo(map);
+
+    document.getElementById("btn-minimize").addEventListener("click", (e) => {
+        document.getElementById("colors-info").style = "display: none;";
+        document.getElementById("btn-palette").style = "display: flex;"
+    })
+
+    document.getElementById("btn-palette").addEventListener("click", (e) => {
+        document.getElementById("colors-info").style = "display: flex;";
+        document.getElementById("btn-palette").style = "display: none;"
+    })
 
     const formData = document.getElementById("form-data");
     const selectStat = document.getElementById("select-stat");

@@ -54,6 +54,7 @@ const generatePopupMigration = (feature, resultMigration, index, year) => {
     ulMigrationNet.id = "ul-migration-net";
     
     const liMigrationValue = document.createElement("li");
+    liMigrationValue.className = "map-value";
     const migrationValue = (resultMigration.value[index+year*310*2]/resultMigration.value[index+year*310*2+1]);
     if (migrationValue<1) {
         liMigrationValue.innerText = "percentage: " + Math.floor((-1*(1-migrationValue))*1000)/10 + "%";

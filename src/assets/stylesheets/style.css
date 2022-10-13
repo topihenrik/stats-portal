@@ -27,6 +27,94 @@ main {
     height: calc(100% - 62px - 0.5rem);
 }
 
+.map-value {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+#colors-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: absolute;
+    height: fit-content;
+    width: fit-content;
+    background-color: white;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    opacity: 0.9;
+    z-index: 1000;
+    bottom: 10px;
+    left: 10px;
+    padding: 8px;
+}
+
+#btn-palette {
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1000;
+    padding: 4px;
+    border-radius: 6px;
+    border: 2px solid rgba(0, 0, 0, 0.6);
+    background-color: white;
+}
+
+#img-palette {
+    width: 32px;
+    height: 32px;
+}
+
+#colors-header {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+
+#btn-minimize {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    height: fit-content;
+    width: fit-content;
+    border: none;
+    background-color: inherit;
+}
+
+#img-minimize {
+    position: relative;
+    width: 32px;
+    height: 24px;
+    top: -8px;
+}
+
+#colors-info > *, #colors-header > * {
+    opacity: 1;
+    margin: 0;
+}
+
+#colors-info p {
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+#first-color {
+    color: green;
+}
+
+#second-color {
+    color: yellowgreen;
+}
+
+#third-color {
+    color: red;
+}
+
 .leaflet-interactive:focus {
     outline: none;
     stroke-width: 6;
@@ -45,7 +133,6 @@ main {
 #ul-migration-net li {
     margin: 8px 0;
 }
-
 
 line.line-horizontal.dashed {
     stroke: rgb(100, 100, 100) !important;

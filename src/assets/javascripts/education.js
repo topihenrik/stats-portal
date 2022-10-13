@@ -62,6 +62,7 @@ const generatePopupEducation = (feature, resultEducation, index, year) => {
     divPopupBox.appendChild(pSsRate); 
 
     const pLudRate = document.createElement("p");
+    pLudRate.className = "map-value";
     pLudRate.innerText = "Lower University Degree Rate: " + Math.floor(((resultEducation.value[index+year*310*27+5]/resultEducation.value[index+year*310*27+0]))*1000)/10 + "%";
     divPopupBox.appendChild(pLudRate);   
 
