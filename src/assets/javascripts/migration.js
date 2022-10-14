@@ -5,15 +5,14 @@ const buildChartMigration = (municipalityIndex, municipality, resultMigration) =
     modalTitle.innerText = municipality;
 
     const labels = Object.values(resultMigration.dimension.Vuosi.category.label);
-
     const migrationValues = [];
-
     const fullYearLength = 310*2;
-    resultMigration.value.forEach((value, yearIndex) => {
+
+    for (let yearIndex = 0; yearIndex < resultMigration.value.length; yearIndex++) {
         if(yearIndex%fullYearLength === 0) {
             migrationValues.push((resultMigration.value[yearIndex+municipalityIndex]-resultMigration.value[yearIndex+municipalityIndex+1]))
         }
-    })
+    }
 
     const chartData = {
         labels: labels,

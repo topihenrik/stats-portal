@@ -10,15 +10,14 @@ const buildChartEducation = (municipalityIndex, municipality, resultEducation) =
     const ludValue = 5;
     const maleLudRates = []
     const femaleLudRates = []     
-
-    console.log("length: ", resultEducation.value.length);
     const fullYearLength = 310*27;
-    resultEducation.value.forEach((value, yearIndex) => {
+
+    for (let yearIndex = 0; yearIndex < resultEducation.value.length; yearIndex++) {
         if (yearIndex%fullYearLength === 0) {
             maleLudRates.push(Math.floor(((resultEducation.value[yearIndex+municipalityIndex+maleIndex+ludValue]/resultEducation.value[yearIndex+municipalityIndex+maleIndex]))*1000)/10)
             femaleLudRates.push(Math.floor(((resultEducation.value[yearIndex+municipalityIndex+femaleIndex+ludValue]/resultEducation.value[yearIndex+municipalityIndex+femaleIndex]))*1000)/10)
         }
-    })
+    }
 
     const chartData = {
         labels: labels,

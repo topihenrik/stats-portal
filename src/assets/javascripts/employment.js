@@ -8,16 +8,16 @@ const buildChartEmployment = (index, municipality, resultEmployment) => {
     const maleWorkforceValues = resultEmployment.value.slice(index+5+15, index+5+15+5);
     const maleEmployedValues = resultEmployment.value.slice(index+5+30, index+5+30+5);
     const maleUnemploymentRates = [];
-    maleWorkforceValues.forEach((workForceValue, index) => {
-        maleUnemploymentRates.push(Math.floor((1-(maleEmployedValues[index]/workForceValue))*1000)/10);
-    })
+    for (let index = 0; index < maleWorkforceValues.length; index++) {
+        maleUnemploymentRates.push(Math.floor((1-(maleEmployedValues[index]/maleWorkforceValues[index]))*1000)/10);
+    }
 
     const femaleWorkforceValues = resultEmployment.value.slice(index+10+15, index+10+15+5);
     const femaleEmployedValues = resultEmployment.value.slice(index+10+30, index+10+30+5);
     const femaleUnemploymentRates = [];
-    femaleWorkforceValues.forEach((workForceValue, index) => {
-        femaleUnemploymentRates.push(Math.floor((1-(femaleEmployedValues[index]/workForceValue))*1000)/10);
-    })
+    for (let index = 0; index < femaleWorkforceValues.length; index++) {
+        femaleUnemploymentRates.push(Math.floor((1-(femaleEmployedValues[index]/femaleWorkforceValues[index]))*1000)/10);
+    }
     
     const chartData = {
         labels: labels,
