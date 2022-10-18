@@ -12,6 +12,7 @@ import { generatePopupEmployment } from "./employment";
 import { generatePopupEducation } from "./education";
 import { generatePopupMigration } from "./migration";
 
+// Fetching statistic data from statfin API.
 const fetchData = async(stat) => {
     try {
         let fetchUrl = undefined;
@@ -45,6 +46,7 @@ const fetchData = async(stat) => {
     }
 }
 
+// Initializing leaflet map
 const initMap = (map = undefined) => {
     L.easyPrint({
         title: "test111",
@@ -73,6 +75,7 @@ const initMap = (map = undefined) => {
     L.control.layers(baseMaps).addTo(map);
 }
 
+// Adding GeoJSON layer to the leaflet map
 const addGeoJson = async (map = undefined, stat = "employment", fullYear = 2020, geoLayer = undefined) => {
     try {
         const {resultGeo, resultStat} = await fetchData(stat);
@@ -137,6 +140,7 @@ const addGeoJson = async (map = undefined, stat = "employment", fullYear = 2020,
     }
 }
 
+// Initializes the website by adding a map, modal and event listeners
 const initialize = () => {
     if (localStorage.getItem("init") === null) {
         const infoModal = document.getElementById("info-modal");

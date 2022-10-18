@@ -1,5 +1,6 @@
 import { Chart } from "frappe-charts";
 
+// Builds a chart about intermunicipal migration
 const buildChartMigration = (municipalityIndex, municipality, resultMigration) => {
     const modalTitle = document.getElementById("modal-title");
     modalTitle.innerText = municipality;
@@ -37,6 +38,7 @@ const buildChartMigration = (municipalityIndex, municipality, resultMigration) =
     return;
 }
 
+// Generates a leaflet popup for a municipality
 const generatePopupMigration = (feature, resultMigration, index, year) => {
     const divPopupBox = document.createElement("div");
     divPopupBox.className = "leaflet-custom-popup-box";

@@ -1,5 +1,6 @@
 import { Chart } from "frappe-charts";
 
+// Builds a chart about education level
 const buildChartEducation = (municipalityIndex, municipality, resultEducation) => {
     const modalTitle = document.getElementById("modal-title");
     modalTitle.innerText = municipality;
@@ -44,6 +45,7 @@ const buildChartEducation = (municipalityIndex, municipality, resultEducation) =
     return;
 }
 
+// Generates a leaflet popup for a municipality
 const generatePopupEducation = (feature, resultEducation, index, year) => {
     const divPopupBox = document.createElement("div");
     divPopupBox.className = "leaflet-custom-popup-box";   

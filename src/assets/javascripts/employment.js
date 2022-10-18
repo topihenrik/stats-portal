@@ -1,5 +1,6 @@
 import { Chart } from "frappe-charts";
 
+// Builds a chart about unemployment rate
 const buildChartEmployment = (index, municipality, resultEmployment) => {
     const modalTitle = document.getElementById("modal-title");
     modalTitle.innerText = municipality;
@@ -42,6 +43,7 @@ const buildChartEmployment = (index, municipality, resultEmployment) => {
     })
 }
 
+// Generates a leaflet popup for a municipality
 const generatePopupEmployment = (feature, resultEmployment, index, year) => {
     const divPopupBox = document.createElement("div");
     divPopupBox.className = "leaflet-custom-popup-box";
