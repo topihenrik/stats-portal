@@ -5,7 +5,7 @@
   "source": "src/index.html",
   "scripts": {
     "start": "parcel --open",
-    "build": "parcel build"
+    "build": "parcel build --public-url ./"
   },
   "dependencies": {
     "bootstrap": "^5.2.2",
